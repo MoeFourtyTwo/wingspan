@@ -1,7 +1,5 @@
 import streamlit as st
-from pandas.core.ops.mask_ops import raise_for_nan
 
-# Title of the app
 st.title("Flügelschlag - Punktezähler")
 
 
@@ -44,10 +42,8 @@ def calc_victory(player_index: int, points: list[int]) -> str:
     return ""
 
 
-
-
 for index in range(num_players):
-    columns[index].text_input(f"Spieler {index+1}")
+    columns[index].text_input(f"Spieler {index+1}", key=f"name_{index}")
     columns[index].number_input("Vögel", value=0, step=1, key=f"birds_{index}")
     columns[index].number_input("Bonuspunkte", value=0, step=1, key=f"bonus_{index}")
     columns[index].number_input("Rundenziele", value=0, step=1, key=f"goal_{index}")
@@ -58,12 +54,6 @@ for index in range(num_players):
     columns[index].number_input(
         "Karten unter Vögeln", value=0, step=1, key=f"under_{index}"
     )
-
-
-st.divider()
-columns = st.columns(num_players)
-
-for index in range(num_players):
     options = ["Erster", "Zweiter"]
     columns[index].pills(
         "Nektar im Wald", options, selection_mode="single", key=f"nectar_green_{index}"
@@ -102,6 +92,5 @@ for index in range(num_players):
     )
 
 for index in range(num_players):
-    columns[index].caption(f"Punkte Spieler {index+1}")
+    columns[index].caption(f"Punkte {st.session_state[f'name_{index}']}")
     columns[index].header(f"{calc_victory(index, total_points)}{total_points[index]}")
-
