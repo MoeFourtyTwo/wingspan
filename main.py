@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Flügelschlag - Punktezähler")
+st.title("🪽 Flügelschlag - Punktezähler 🦉")
 
 
 num_players = st.number_input("Anzahl Spieler", value=4, step=1)
