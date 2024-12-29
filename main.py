@@ -8,9 +8,11 @@ for prop in st.session_state:
     if prop.startswith("p_"):
         st.session_state[prop] = st.session_state[prop]
 
-
 if st.session_state.get("p_state") is None:
     st.session_state["p_state"] = 1
+
+if st.session_state.get("p_num_players") is None:
+    st.session_state["p_num_players"] = 4
 
 
 def previous_state():
@@ -61,13 +63,13 @@ def debug():
 
 
 def animate_starting_player():
-    starting_player_index = random.randint(0, st.session_state["p_num_players"] - 1)
-
     with st.spinner("Wähle einen zufälligen Spieler aus..."):
         time.sleep(2)
+        starting_player_index = random.randint(0, st.session_state["p_num_players"] - 1)
 
-    st.write_stream(stream_string("Der Startspieler ist..."))
-    st.header(st.session_state[f"p_name_{starting_player_index}"])
+    _, mid, _ = st.columns([2, 2, 2])
+    mid.write_stream(stream_string("Der Startspieler ist..."))
+    mid.subheader(st.session_state[f"p_name_{starting_player_index}"])
 
 
 def collect_bird_points():
