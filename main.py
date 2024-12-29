@@ -43,15 +43,6 @@ def generate_footer():
     next_col.button("Weiter", use_container_width=True, on_click=next_state)
 
 
-def player_name_change():
-    if all(
-        st.session_state.get(f"p_name_{i}") is not None
-        and len(st.session_state[f"p_name_{i}"]) > 0
-        for i in range(st.session_state["p_num_players"])
-    ):
-        st.session_state["p_state"] += 1
-
-
 def collect_player_data():
     st.number_input(
         "Anzahl Spieler", value=4, step=1, min_value=1, max_value=6, key="p_num_players"
@@ -62,7 +53,6 @@ def collect_player_data():
             f"Spieler {i+1}",
             value=st.session_state.get(f"p_name_{i}"),
             key=f"p_name_{i}",
-            on_change=player_name_change,
         )
 
 
